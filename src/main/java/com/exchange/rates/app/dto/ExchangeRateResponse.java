@@ -10,5 +10,4 @@ public class ExchangeRateResponse {
     private String base_code;
 
     private Rates rates;
-
 }
