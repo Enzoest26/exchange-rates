@@ -1,4 +1,4 @@
-package com.exchange.rates.app.controller;
+package com.exchange.rates.app.resource;
 
 import com.exchange.rates.app.service.RateCurrencyService;
 import jakarta.inject.Inject;
