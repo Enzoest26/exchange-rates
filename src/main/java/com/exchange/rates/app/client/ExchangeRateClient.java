@@ -1,6 +1,6 @@
 package com.exchange.rates.app.client;
 
-import com.exchange.rates.app.dto.ExchangeRateResponse;
+import com.exchange.rates.app.dto.exchange.ExchangeRateResponse;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

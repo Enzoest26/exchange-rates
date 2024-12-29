@@ -1,4 +1,4 @@
-package com.exchange.rates.app.dto;
+package com.exchange.rates.app.dto.exchange;
 
 import lombok.Data;
 
