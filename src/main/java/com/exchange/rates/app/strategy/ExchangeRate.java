@@ -1,25 +1,24 @@
-package com.exchange.rates.app.service.impl;
+package com.exchange.rates.app.strategy;
 
 import com.exchange.rates.app.client.ExchangeRateClient;
+import com.exchange.rates.app.dto.ExchangeRateDto;
 import com.exchange.rates.app.dto.exchange.ExchangeRateResponse;
-import com.exchange.rates.app.service.RateCurrencyService;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
-@ApplicationScoped
-public class RateCurrencyServiceImpl implements RateCurrencyService {
+public class ExchangeRate implements ExchangeRateStrategy {
 
     @Override
-    public ExchangeRateResponse getRateCurrency(String codeCurrency) {
+    public ExchangeRateDto getCurrentExchangeRate(String currency) {
         ExchangeRateClient client = getConfigurationClient();
 
-        return client.getRateCurrency(codeCurrency);
+        ExchangeRateResponse response = client.getRateCurrency(currency);
+
+        return buildDto(currency, response);
     }
 
-    // ADD TO CONFIG FILE
     private ExchangeRateClient getConfigurationClient() {
         Client client = ClientBuilder.newClient();
 
@@ -28,5 +27,12 @@ public class RateCurrencyServiceImpl implements RateCurrencyService {
         ResteasyWebTarget rtarget = (ResteasyWebTarget)target;
 
         return rtarget.proxy(ExchangeRateClient.class);
+    }
+
+    private ExchangeRateDto buildDto(String currency, ExchangeRateResponse response) {
+        return ExchangeRateDto.builder()
+                .currency(currency)
+                .rates(response.getRates())
+                .build();
     }
 }
